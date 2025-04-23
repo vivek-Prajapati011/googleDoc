@@ -9,6 +9,9 @@ app.use((req,res, next) => {
     res.set("Acess-Control-Allow-Origin", "*")
 })
 // setting up routes
+app.get ("/", (req, res) => {
+    res.send("hello")
+})
 // listening to the port
 app.listen(port, () => {
 console.log("server is started")
