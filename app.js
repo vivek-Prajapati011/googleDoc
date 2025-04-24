@@ -12,7 +12,13 @@ app.use((req,res, next) => {
     next()
 })
 
-app.use(express.static("storage"))  // enabling static files 
+app.use( (req, res, next) => {
+    if (req.query.action === "download") { 
+        res.set("Content-Dispostion", "attachment")
+        
+    }
+    express.static("storage")(req, res, next)
+} )  // enabling static files 
 // setting up routes
 app.get ("/", async (req, res) => {
     const fileName = await readdir("./storage")
