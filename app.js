@@ -1,5 +1,7 @@
 // importing express
 import express from "express"
+// importinf readdir
+import { readdir } from "fs/promises"
 
 const app = express()
 //setting port number
@@ -9,7 +11,9 @@ app.use((req,res, next) => {
     res.set("Acess-Control-Allow-Origin", "*")
 })
 // setting up routes
-app.get ("/", (req, res) => {
+app.get ("/", async (req, res) => {
+    const fileName = await readdir("./storage")
+    console.log(fileName)
     res.send("hello")
 })
 // listening to the port
