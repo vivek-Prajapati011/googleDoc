@@ -9,7 +9,10 @@ const port = 3000
 // enabling cores
 app.use((req,res, next) => {
     res.set("Acess-Control-Allow-Origin", "*")
+    next()
 })
+
+app.use(express.static("storage"))  // enabling static files 
 // setting up routes
 app.get ("/", async (req, res) => {
     const fileName = await readdir("./storage")
