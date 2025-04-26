@@ -1,11 +1,17 @@
 // importing express
 import express from "express"
+
+
 // importinf readdir
 import { readdir } from "fs/promises"
 
 const app = express()
+
+
 //setting port number
 const port = 3000
+
+
 // enabling cores
 app.use((req,res, next) => {
     res.set("Acess-Control-Allow-Origin", "*")
@@ -22,9 +28,12 @@ app.use( (req, res, next) => {
 } )  
 
 // setting dynamic routes
-app.get("/:fileName", (req,res) => {
-    const fileName = req.params.fileName
-    res.sendFile(`${import.meta.dirname}/storage/${fileName}`)
+app.get("/:fileName", (req,res) => { 
+    const fileName = req.params.fileName // getting the file name from the url
+    if ( req.query.params === "download") { 
+        res.set("Content-Dispositon", "attachment") // setting the content disposition to attchment 
+    }
+    res.sendFile(`${import.meta.dirname}/storage/${fileName}`) // sending the file to the client 
 })
 
 // setting up routes
