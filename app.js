@@ -17,8 +17,16 @@ app.use( (req, res, next) => {
         res.set("Content-Dispostion", "attachment")
         
     }
+     // enabling static files
     express.static("storage")(req, res, next)
-} )  // enabling static files 
+} )  
+
+// setting dynamic routes
+app.get("/:fileName", (req,res) => {
+    const fileName = req.params.fileName
+    res.sendFile(`${import.meta.dirname}/storage/${fileName}`)
+})
+
 // setting up routes
 app.get ("/", async (req, res) => {
     const fileName = await readdir("./storage")
