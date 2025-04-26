@@ -1,5 +1,6 @@
 // importing express
 import express from "express"
+import { rm } from "fs"
 
 
 // importinf readdir
@@ -34,6 +35,18 @@ app.get("/:fileName", (req,res) => {
         res.set("Content-Dispositon", "attachment") // setting the content disposition to attchment 
     }
     res.sendFile(`${import.meta.dirname}/storage/${fileName}`) // sending the file to the client 
+})
+
+app.delete("/:fileName", async (req,res) => {
+    const fileName = req.params.fileName
+    const filepath = `${import.meta.dirname}/storage/${fileName}`
+    try {
+         await rm(filepath)
+        res.json({msg : "file deleted successfully"})
+    } catch (error){
+        res.status(404).json({msg : "file not found"})
+    }
+
 })
 
 // setting up routes
