@@ -37,6 +37,7 @@ app.get("/:fileName", (req,res) => {
     res.sendFile(`${import.meta.dirname}/storage/${fileName}`) // sending the file to the client 
 })
 
+// setting up dlt route
 app.delete("/:fileName", async (req,res) => {
     const fileName = req.params.fileName
     const filepath = `${import.meta.dirname}/storage/${fileName}`
@@ -48,6 +49,16 @@ app.delete("/:fileName", async (req,res) => {
     }
 
 })
+//
+app.patch("/:fileName", async (req,res) => {
+    const fileName = req.query.params.fileName
+    const filePath = `${import.meta.dirname}/storage/${fileName}`
+    try {
+        
+    }
+})
+
+
 
 // setting up routes
 app.get ("/", async (req, res) => {
