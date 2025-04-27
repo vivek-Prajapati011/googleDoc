@@ -4,7 +4,7 @@ import { rm } from "fs"
 
 
 // importinf readdir
-import { readdir } from "fs/promises"
+import { readdir, rename } from "fs/promises"
 
 const app = express()
 
@@ -60,11 +60,7 @@ app.delete("/:fileName", async (req,res) => {
 })
 
 app.patch("/:fileName", async (req,res) => {
-    const fileName = req.query.params.fileName
-    const filePath = `${import.meta.dirname}/storage/${fileName}`
-    try {
-        
-    }
+   
 })
 
 
