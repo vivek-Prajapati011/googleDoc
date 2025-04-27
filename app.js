@@ -60,7 +60,9 @@ app.delete("/:fileName", async (req,res) => {
 })
 
 app.patch("/:fileName", async (req,res) => {
-   
+    const fileName = req.query.params.fileName
+   await rename(`./storage/${fileName}`, `./storage/${req.body.newfileName}`)
+   res.json({msg: "file rername sucessfully"})
 })
 
 
