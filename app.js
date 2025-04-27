@@ -1,6 +1,6 @@
 // importing express
 import express from "express"
-import { rm } from "fs"
+import { createWriteStream, rm } from "fs"
 
 
 // importinf readdir
@@ -22,6 +22,16 @@ app.use((req, res, next) => {
     res.set("Acess-Control-Header", "*")
     next()
 })
+
+// creating routes for uploading files
+app.post("/:fileName", (req,res) => {
+    const writeStram = createWriteStream(`./storage/${req.params.fileName}`)
+    req.pipe(writeStram)
+    req.on("end", () => {
+        res.json({msg : "file uploaded sucessfully"})
+    })
+})
+
 app.use( (req, res, next) => {
     if (req.query.action === "download") { 
         res.set("Content-Dispostion", "attachment")
