@@ -19,6 +19,8 @@ app.use((req,res, next) => {
     next()
 })
 
+
+app.use(express.json())
 app.use( (req, res, next) => {
     if (req.query.action === "download") { 
         res.set("Content-Dispostion", "attachment")
@@ -49,7 +51,7 @@ app.delete("/:fileName", async (req,res) => {
     }
 
 })
-//
+
 app.patch("/:fileName", async (req,res) => {
     const fileName = req.query.params.fileName
     const filePath = `${import.meta.dirname}/storage/${fileName}`
