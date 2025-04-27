@@ -21,6 +21,13 @@ app.use((req,res, next) => {
 
 
 app.use(express.json())
+
+//enabling cores
+app.use((req, res, next) => {
+    res.set("Acess-Control-Allow-Origin", "*")
+    res.set("Acess-Control-Method", "*")
+    res.set("Acess-Control-Header", "*")
+})
 app.use( (req, res, next) => {
     if (req.query.action === "download") { 
         res.set("Content-Dispostion", "attachment")
