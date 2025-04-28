@@ -72,7 +72,7 @@ app.patch("/files/:fileName", async (req,res) => {
 
 
 // setting up routes
-app.get ("/", async (req, res) => {
+app.get ("/directory", async (req, res) => {
     const fileName = await readdir("./storage")
     console.log(fileName)
     res.send("hello")
