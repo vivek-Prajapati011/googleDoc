@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 })
 
 // creating routes for uploading files
-app.post("/:fileName", (req,res) => {
+app.post("/files/:fileName", (req,res) => { 
     const writeStram = createWriteStream(`./storage/${req.params.fileName}`)
     req.pipe(writeStram)
     req.on("end", () => {
