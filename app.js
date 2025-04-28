@@ -42,7 +42,7 @@ app.use( (req, res, next) => {
 } )  
 
 // setting dynamic routes
-app.get("/:fileName", (req,res) => { 
+app.get("/files/:fileName", (req,res) => { 
     const fileName = req.params.fileName // getting the file name from the url
     if ( req.query.params === "download") { 
         res.set("Content-Dispositon", "attachment") // setting the content disposition to attchment 
