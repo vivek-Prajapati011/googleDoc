@@ -4,7 +4,7 @@ import { createWriteStream, rm } from "fs"
 
 
 // importinf readdir
-import { readdir, rename } from "fs/promises"
+import { readdir, rename, stat } from "fs/promises"
 
 const app = express()
 
@@ -74,8 +74,14 @@ app.patch("/files/:fileName", async (req,res) => {
 // setting up routes
 app.get ("/directory", async (req, res) => {
     const fileName = await readdir("./storage")
-    console.log(fileName)
-    res.send("hello")
+    // filtering the files and diredtories
+    const resData = []  
+    for( const items of fileName){ 
+        const stats = await stat(`/storage/${items}`)
+        resData.push({name: items, isDirectory: stats.isDirectory()})
+
+    }
+    res.json(resData)
 })
 // listening to the port
 app.listen(port, () => {
