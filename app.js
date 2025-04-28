@@ -51,7 +51,7 @@ app.get("/files/:fileName", (req,res) => {
 })
 
 // setting up dlt route
-app.delete("/:fileName", async (req,res) => {
+app.delete("/files/:fileName", async (req,res) => {
     const fileName = req.params.fileName
     const filepath = `${import.meta.dirname}/storage/${fileName}`
     try {
