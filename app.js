@@ -80,7 +80,7 @@ app.get ("/directory/:dirname?", async (req, res) => { // optional routing
     // filtering the files and directories
     const resData = []  
     for( const items of fileName){ 
-        const stats = await stat(`/storage/${items}`)
+        const stats = await stat(`${fullDirpathh}/${items}`)
         resData.push({name: items, isDirectory: stats.isDirectory()})
 
     }
