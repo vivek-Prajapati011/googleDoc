@@ -35,16 +35,16 @@ app.post("/files/*", (req,res) => {
 
 // setting dynamic routes
 app.get("/files/*", (req,res) => { 
-    const fileName = req.params[0] // getting the file name from the url
+    const filePath = req.params[0] // getting the file name from the url
     if ( req.query.params === "download") { 
         res.set("Content-Dispositon", "attachment") // setting the content disposition to attchment 
     }
-    res.sendFile(`${import.meta.dirname}/storage/${fileName}`) // sending the file to the client 
+    res.sendFile(`${import.meta.dirname}/storage/${filePath}`) // sending the file to the client 
 })
 
 // setting up dlt route
 app.delete("/files/*", async (req,res) => {
-    const fileName = req.params[0]
+    const filePath = req.params[0]
     try {
          await rm(`./storage/${filePath}`, { recursive: true });
         res.json({msg : "file deleted successfully"})
@@ -55,8 +55,8 @@ app.delete("/files/*", async (req,res) => {
 })
 
 app.patch("/files/*", async (req,res) => {
-    const fileName = req.params.fileName
-   await rename(`./storage/${fileName}`, `./storage/${req.body.newfileName}`)
+    const filePath = req.params[0]
+   await rename(`./storage/${filePath}`, `./storage/${req.body.newfileName}`)
    res.json({msg: "file rername sucessfully"})
 })
 
@@ -67,10 +67,10 @@ app.get ("/directory/?*", async (req, res) => { // optional routing
     const dirname = req.params[0]
     console.log(dirname)
     const fullDirpathh = `./storage/${dirname? dirname : ""}`
-    const fileName = await readdir(fullDirpathh)
+    const FileList = await readdir(fullDirpathh)
     // filtering the files and directories
     const resData = []  
-    for( const items of fileName){ 
+    for( const items of FileList){ 
         const stats = await stat(`${fullDirpathh}/${items}`)
         resData.push({name: items, isDirectory: stats.isDirectory()})
 
