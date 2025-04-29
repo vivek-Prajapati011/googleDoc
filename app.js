@@ -50,7 +50,9 @@ app.get("/files/*", (req,res) => {
     if ( req.query.params === "download") { 
         res.set("Content-Dispositon", "attachment") // setting the content disposition to attchment 
     }
-    res.sendFile(`${import.meta.dirname}/storage/${filePath}`) // sending the file to the client 
+    res.sendFile(`${import.meta.dirname}/storage/${filePath}`, (err) => {
+        res.json({msg : "file not found"})
+    }) // sending the file to the client 
 })
 
 // setting up dlt route
