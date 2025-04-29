@@ -46,7 +46,7 @@ app.post("/files/*", (req,res) => {
 
 // setting dynamic routes
 app.get("/files/*", (req,res) => { 
-    const filePath = req.params[0] // getting the file name from the url
+    const dirname = path.join('/', req.params[0]) // getting the file name from the url
     if ( req.query.params === "download") { 
         res.set("Content-Dispositon", "attachment") // setting the content disposition to attchment 
     }
