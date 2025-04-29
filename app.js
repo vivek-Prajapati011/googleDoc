@@ -72,8 +72,8 @@ app.patch("/files/:fileName", async (req,res) => {
 
 
 // setting up routes
-app.get ("/directory/:dirname?", async (req, res) => { // optional routing
-    const dirname = req.params.dirname
+app.get ("/directory/?*", async (req, res) => { // optional routing
+    const dirname = req.params[0]
     console.log(dirname)
     const fullDirpathh = `./storage/${dirname? dirname : ""}`
     const fileName = await readdir(fullDirpathh)
