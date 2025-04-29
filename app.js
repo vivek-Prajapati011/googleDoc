@@ -23,9 +23,9 @@ app.use((req, res, next) => {
     next()
 })
 
-// creating routes for uploading files
-app.post("/files/:fileName", (req,res) => { 
-    const writeStram = createWriteStream(`./storage/${req.params.fileName}`)
+// creating routes for uploading files 
+app.post("/files/*", (req,res) => {  
+    const writeStram = createWriteStream(`./storage/${req.params[0]}`)
     req.pipe(writeStram)
     req.on("end", () => {
         res.json({msg : "file uploaded sucessfully"})
