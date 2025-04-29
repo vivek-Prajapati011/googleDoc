@@ -5,6 +5,7 @@ import { createWriteStream, mkdir, rm } from "fs"
 
 // importinf readdir
 import { readdir, rename, stat } from "fs/promises"
+import path from "path"
 
 const app = express()
 
@@ -74,7 +75,7 @@ app.patch("/files/*", async (req,res) => {
 
 // setting up routes
 app.get ("/directory/?*", async (req, res) => { // optional routing
-    const dirname = req.params[0]
+    const dirname = path.join('/', req.params[0]) 
     console.log(dirname)
     const fullDirpathh = `./storage/${dirname? dirname : ""}`
     const FileList = await readdir(fullDirpathh)
