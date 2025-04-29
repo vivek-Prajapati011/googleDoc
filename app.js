@@ -31,15 +31,7 @@ app.post("/files/*", (req,res) => {
         res.json({msg : "file uploaded sucessfully"})
     })
 })
-
-app.use( (req, res, next) => {
-    if (req.query.action === "download") { 
-        res.set("Content-Dispostion", "attachment")
-        
-    }
-     // enabling static files
-    express.static("storage")(req, res, next)
-} )  
+  
 
 // setting dynamic routes
 app.get("/files/:fileName", (req,res) => { 
