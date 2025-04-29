@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 })
 
 app.post("/directory/?*", async (res,req) => {
-    const dirname = req.params[0]
+    const dirname = path.join('/', req.params[0]) 
     try {
         await mkdir(`./storage/${dirname}`);
         res.json({ message: "Directory Created!" });
@@ -35,8 +35,9 @@ app.post("/directory/?*", async (res,req) => {
 })
 
 // creating routes for uploading files 
-app.post("/files/*", (req,res) => {  
-    const writeStram = createWriteStream(`./storage/${req.params[0]}`)
+app.post("/files/*", (req,res) => { 
+    const filePath = path.join('/', req.params[0])  
+    const writeStram = createWriteStream(`./storage/${filePath}`)
     req.pipe(writeStram)
     req.on("end", () => {
         res.json({msg : "file uploaded sucessfully"})
@@ -59,7 +60,7 @@ app.get("/files/*", (req,res) => {
 
 // setting up dlt route
 app.delete("/files/*", async (req,res) => {
-    const filePath = req.params[0]
+    const filePath = path.join('/', req.params[0]) 
     try {
          await rm(`./storage/${filePath}`, { recursive: true });
         res.json({msg : "file deleted successfully"})
@@ -70,7 +71,7 @@ app.delete("/files/*", async (req,res) => {
 })
 
 app.patch("/files/*", async (req,res) => {
-    const filePath = req.params[0]
+    const filePath = path.join('/', req.params[0]) 
    await rename(`./storage/${filePath}`, `./storage/${req.body.newfileName}`)
    res.json({msg: "file rername sucessfully"})
 })
