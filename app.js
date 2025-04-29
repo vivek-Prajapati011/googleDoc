@@ -1,6 +1,6 @@
 // importing express
 import express from "express"
-import { createWriteStream, rm } from "fs"
+import { createWriteStream, mkdir, rm } from "fs"
 
 
 // importinf readdir
