@@ -34,3 +34,11 @@ app.delete("/files/*", async (req,res) => {
     }
 
 })
+
+
+// creatin fouts to uplaod  file 
+app.patch("/files/*", async (req,res) => {
+    const filePath = path.join('/', req.params[0]) 
+   await rename(`./storage/${filePath}`, `./storage/${req.body.newfileName}`)
+   res.json({msg: "file rername sucessfully"})
+})
