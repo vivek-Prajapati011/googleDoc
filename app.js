@@ -70,25 +70,7 @@ app.patch("/files/*", async (req,res) => {
 
 
 
-// setting up routes
-app.get ("/directory/?*", async (req, res) => { // optional routing
-    const dirname = path.join('/', req.params[0]) 
-    console.log(dirname)
-    const fullDirpathh = `./storage/${dirname? dirname : ""}`
-   try {
-    const FileList = await readdir(fullDirpathh)
-    // filtering the files and directories
-    const resData = []  
-    for( const items of FileList){ 
-        const stats = await stat(`${fullDirpathh}/${items}`)
-        resData.push({name: items, isDirectory: stats.isDirectory()})
 
-    }
-    res.json(resData) 
-   } catch (error) { 
-    res.json({error: error.message})
-   }
-})
 // listening to the port
 app.listen(port, () => {
 console.log("server is started")
