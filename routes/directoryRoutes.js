@@ -20,7 +20,7 @@ const route = express.Router()
 
 
 // setting up routes for renaming files and directory
-app.get ("/directory/?*", async (req, res) => { // optional routing
+app.get ("/?*", async (req, res) => { // optional routing
     const dirname = path.join('/', req.params[0]) 
     console.log(dirname)
     const fullDirpathh = `./storage/${dirname? dirname : ""}`
