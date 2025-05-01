@@ -16,6 +16,7 @@ const port = 3000
 
 
 app.use("/directory", directoryRoutes) 
+app.use("/file", fileRoutesRoutes)
 app.use(express.json())
 
 //enabling cores
