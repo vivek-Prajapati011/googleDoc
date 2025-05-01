@@ -21,3 +21,16 @@ app.get("/files/*", (req,res) => {
         }
     }) // sending the file to the client 
 })
+
+
+// setting up dlt route
+app.delete("/files/*", async (req,res) => {
+    const filePath = path.join('/', req.params[0]) 
+    try {
+         await rm(`./storage/${filePath}`, { recursive: true });
+        res.json({msg : "file deleted successfully"})
+    } catch (error){
+        res.status(404).json({msg : "file not found"})
+    }
+
+})
