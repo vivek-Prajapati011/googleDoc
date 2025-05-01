@@ -33,12 +33,6 @@ app.use((req, res, next) => {
 
 
 
-app.patch("/files/*", async (req,res) => {
-    const filePath = path.join('/', req.params[0]) 
-   await rename(`./storage/${filePath}`, `./storage/${req.body.newfileName}`)
-   res.json({msg: "file rername sucessfully"})
-})
-
 
 
 
