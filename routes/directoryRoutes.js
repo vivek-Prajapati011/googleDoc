@@ -1,3 +1,11 @@
+import express from "express"
+import {  mkdir} from "fs"
+// importing readdir
+import { readdir,  stat } from "fs/promises"
+import path from "path"
+
+const app = express()
+
 app.post("/directory/?*", async (res,req) => {
     const dirname = path.join('/', req.params[0]) 
     try {
