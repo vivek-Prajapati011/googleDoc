@@ -24,7 +24,7 @@ route.get("/*", (req,res) => {
     if ( req.query.params === "download") { 
         res.set("Content-Dispositon", "attachment") // setting the content disposition to attchment 
     }
-    res.sendFile(`${import.meta.dirname}/storage/${filePath}`, (err) => {
+    res.sendFile(`${process.cwd()}/storage/${filePath}`, (err) => {
         if (err){
             res.json({msg : "file not found"})
         }
