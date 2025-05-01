@@ -2,7 +2,7 @@
 import express from "express"
 import { createWriteStream, mkdir, rm } from "fs"
 
-
+import { directoryRoutes} from "./routes/directoryRoutes.js"
 // importinf readdir
 import { readdir, rename, stat } from "fs/promises"
 import path from "path"
