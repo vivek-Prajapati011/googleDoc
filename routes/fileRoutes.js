@@ -51,3 +51,5 @@ route.patch("/*", async (req,res) => {
    await rename(`./storage/${filePath}`, `./storage/${req.body.newfileName}`)
    res.json({msg: "file rername sucessfully"})
 })
+
+export default route
