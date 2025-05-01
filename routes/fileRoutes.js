@@ -4,11 +4,11 @@ import { createWriteStream, rm } from "fs"
 import {  rename } from "fs/promises"
 import path from "path"
 
-const app = express()
+const route = express.Router()
 
 
 // creating routes for uploading files 
-app.post("/files/*", (req,res) => { 
+route.post("/*", (req,res) => { 
     const filePath = path.join('/', req.params[0])  
     const writeStram = createWriteStream(`./storage/${filePath}`)
     req.pipe(writeStram)
@@ -19,7 +19,7 @@ app.post("/files/*", (req,res) => {
 
 
 // setting dynamic routes
-app.get("/files/*", (req,res) => { 
+route.get("/*", (req,res) => { 
   const filePath = path.join('/', req.params[0]) // getting the file name from the url
     if ( req.query.params === "download") { 
         res.set("Content-Dispositon", "attachment") // setting the content disposition to attchment 
@@ -33,7 +33,7 @@ app.get("/files/*", (req,res) => {
 
 
 // setting up dlt route
-app.delete("/files/*", async (req,res) => {
+route.delete("/*", async (req,res) => {
     const filePath = path.join('/', req.params[0]) 
     try {
          await rm(`./storage/${filePath}`, { recursive: true });
@@ -46,7 +46,7 @@ app.delete("/files/*", async (req,res) => {
 
 
 // creatin fouts to uplaod  file 
-app.patch("/files/*", async (req,res) => {
+route.patch("/*", async (req,res) => {
     const filePath = path.join('/', req.params[0]) 
    await rename(`./storage/${filePath}`, `./storage/${req.body.newfileName}`)
    res.json({msg: "file rername sucessfully"})
