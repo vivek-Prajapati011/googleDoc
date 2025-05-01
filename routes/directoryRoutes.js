@@ -16,6 +16,8 @@ app.post("/directory/?*", async (res,req) => {
       }
 })
 
+const route = express.Router()
+
 
 // setting up routes for renaming files and directory
 app.get ("/directory/?*", async (req, res) => { // optional routing
