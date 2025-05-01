@@ -1,3 +1,12 @@
+
+import express from "express"
+import { createWriteStream, rm } from "fs"
+import {  rename } from "fs/promises"
+import path from "path"
+
+const app = express()
+
+
 // creating routes for uploading files 
 app.post("/files/*", (req,res) => { 
     const filePath = path.join('/', req.params[0])  
