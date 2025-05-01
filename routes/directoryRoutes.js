@@ -39,3 +39,5 @@ app.get ("/directory/?*", async (req, res) => { // optional routing
    }
 })
 
+export default route 
+
