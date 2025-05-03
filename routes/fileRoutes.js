@@ -8,15 +8,25 @@ const route = express.Router()
 
 
 // creating routes for uploading files 
-route.post("/*", (req,res) => { 
-    const filePath = path.join('/', req.params[0])  
-    const writeStram = createWriteStream(`./storage/${filePath}`)
-    req.pipe(writeStram)
-    req.on("end", () => {
-        res.json({msg : "file uploaded sucessfully"})
-    })
-})
-
+route.post("/:filename", (req, res) => {
+    const  filename  = req.params.filename
+    const id = crypto.randomUUID()
+    const extension = path.extname(filename)
+    const fullFileName = `${id}${extension}`
+    const writeStream = createWriteStream(`./storage/${fullFileName}`)
+    req.pipe(writeStream)
+    req.on("end", async () => {
+      filesData.push({
+        id,
+        extension,
+        name: filename
+      })
+      console.log(filesData);
+      await writeFile('./filesDB.json', JSON.stringify(filesData))
+      res.json({ message: "File Uploaded" });
+    });
+  });
+  
 
 // setting dynamic routes
 route.get("/*", (req,res) => { 
