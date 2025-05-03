@@ -28,18 +28,19 @@ route.post("/:filename", (req, res) => {
   });
   
 
-// setting dynamic routes
-route.get("/*", (req,res) => { 
-  const filePath = path.join('/', req.params[0]) // getting the file name from the url
-    if ( req.query.params === "download") { 
-        res.set("Content-Dispositon", "attachment") // setting the content disposition to attchment 
+// Path Traversal Vulnerability
+route.get("/:id", (req, res) => {
+    const {id} = req.params
+    const fileData = filesData.find((file) => file.id === id)
+    if (req.query.action === "download") {
+      res.set("Content-Disposition", "attachment");
     }
-    res.sendFile(`${process.cwd()}/storage/${filePath}`, (err) => {
-        if (err){
-            res.json({msg : "file not found"})
-        }
-    }) // sending the file to the client 
-})
+    res.sendFile(`${process.cwd()}/storage/${id}${fileData.extension}`, (err) => {
+      if (err) {
+        res.json({ error: "File not found!" });
+      }
+    });
+  });
 
 
 // setting up dlt route
